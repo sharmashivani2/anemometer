@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf8">
+	<title>Weather Api</title>
+	<style>
+		a{
+			text-decoration: none;
+
+		}
+.btn{
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+.btn1{
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+	</style>
+</head>
+<body>
+	Wind Speed :<input class="" id="wspd" type="input" value="0">
+  Wind Direction :<input class="" id="wdirc" type="input" value="0">
+  Temperature :<input class="" id="temp" type="input" value="0">
+  Humidity :<input class="" id="humid" type="input" value="0">
+  Pressure :<input class="" id="press" type="input" value="0">
+<!-- 	Rainfall :<input class="" id="rainfall" type="input" value="0">
+  Accumulated Rainfall :<input class="" id="accurainfall" type="input" value="0">
+  Solar Radiation Intensity :<input class="" id="solarrad" type="input" value="0">
+  Solar Radiation Cumulative :<input class="" id="solarradcum" type="input" value="0">
+  Light Intensity :<input class="" id="lightinte" type="input" value="0">
+  Ultraviolet Radiation :<input class="" id="ultraviol" type="input" value="0">
+  PM2.5 :<input class="" id="pm25" type="input" value="0">
+  PM10 :<input class="" id="pm10" type="input" value="0">
+  Altitude :<input class="" id="altitude" type="input" value="0"> -->
+  
+	<script type="text/javascript">
+w_speed = document.getElementById("wspd");
+w_dirc = document.getElementById("wdirc");
+function wind_dircection(degree) 
+{
+  const directions = ['N (↑)', 'NE (↗)', 'E (→)', 'SE (↘)', 'S (↓)', 'SW (↙)', 'W (←)', 'NW (↖)'];
+  return directions[Math.round(degree / 45) % 8];
+}
+
+
+temp = document.getElementById("temp");
+humid = document.getElementById("humid");
+pressure = document.getElementById("press");
+// rainfall = document.getElementById("rainfall");
+// accurainfall = document.getElementById("accurainfall");
+// solarrad = document.getElementById("solarrad");
+// solarradcum = document.getElementById("solarradcum");
+// lightinte = document.getElementById("lightinte");
+// pm25= document.getElementById("pm25");
+// pm10 = document.getElementById("pm10");
+// altitude = document.getElementById("altitude");
+
+// xmlhttp.send()
+function refreshData()
+{
+  var xmlhttp = new XMLHttpRequest(),
+  method = 'GET',
+  url = 'http://127.0.0.1:3019/sdata';
+xmlhttp.open(method, url, true);
+xmlhttp.onload = function () {
+  data = JSON.parse(xmlhttp.response)
+  console.log(data)
+  w_speed.value = data.WindSpeed
+  temp.value = data.Temperature
+  humid.value = data.Humidity
+  pressure.value = data.Pressure
+  w_dirc.value = data.WindDirection+' °'+wind_dircection(data.WindDirection)
+  // rainfall.value = data.Rainfall
+  // accurainfall.value = data.AccumulatedRainfall
+  // solarrad.value = data.SolarRadiationIntensity
+  // solarradcum.value = data.SolarRadiationCumulative
+  // lightinte.value = data.LightIntensity
+  // pm25.value = data.PM25
+  // pm10.value = data.PM10
+  // altitude.value = data.Altitude
+ 
+
+
+  // Do something with the retrieved data ( found in xmlhttp.response )
+};
+  xmlhttp.send()
+    x = 60;  // 60 Seconds
+    setTimeout(refreshData, x*1000);
+}
+
+refreshData();
+
+
+	</script>
+	</body>
+	</html>
